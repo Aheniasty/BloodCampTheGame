@@ -176,7 +176,7 @@ footer{padding:25px;background:#111128;color:#aaa;margin-top:50px;}
 </style>
 
 <script>
-// --- Tip dnia (losowa ciekawostka co 7 sekund) ---
+// --- Tip dnia ) ---
 const tips = [
   "Używaj latarki tylko, gdy naprawdę musisz — zdradza twoją pozycję.",
   "Nie każdy, kto przetrwał noc, pozostał sobą...",
@@ -274,7 +274,7 @@ showNextTip();
 </section>
 
 <style>
-/* Sekcja kontaktu - glass/neon styl */
+/* Sekcja kontaktu */
 .contact-wrapper {
   display: flex;
   justify-content: center;
@@ -443,6 +443,106 @@ setInterval(()=>{
     let seconds = Math.floor((distance%(1000*60))/1000);
     document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 },1000);
+</script>
+<style>
+/* ====== HAMBURGER MENU ====== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  position: absolute;
+  right: 20px;
+  top: 22px;
+  z-index: 200;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #fff;
+  border-radius: 3px;
+  transition: all 0.4s ease;
+}
+
+nav.mobile-active a {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+/* Animacja krzyżyka */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 900px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(11,11,18,0.98);
+    padding: 15px;
+    border-radius: 15px;
+    position: absolute;
+    top: 65px;
+    right: 10px;
+    width: 200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+  }
+  nav.mobile-active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  header {
+    position: relative;
+  }
+
+  .hero h1 { font-size: 2em; }
+  .hero p { font-size: 1em; }
+
+  .feature-card, .update-card, .team-member, .stat-card {
+    width: 90%;
+  }
+
+  .contact-form {
+    width: 90%;
+  }
+
+  .teaser-gif {
+    width: 90%;
+  }
+
+  .tip-card {
+    width: 85%;
+  }
+}
+</style>
+
+<!-- 🔽 SKRYPT DLA MENU -->
+<script>
+const hamburger = document.createElement('div');
+hamburger.classList.add('hamburger');
+hamburger.innerHTML = '<span></span><span></span><span></span>';
+document.querySelector('header').appendChild(hamburger);
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  document.querySelector('nav').classList.toggle('mobile-active');
+});
 </script>
 
 </body>
