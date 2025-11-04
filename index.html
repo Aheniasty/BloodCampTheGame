@@ -4,38 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BloodCamp: The Game</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
+/* Reset i podstawowy wygląd */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;}
-body{background:#1f1c2c;color:#fff;text-align:center;transition: background 0.5s;}
-header{padding:20px;background:rgba(31,28,44,0.9);}
-nav a{text-decoration:none;color:#fff;margin:0 10px;font-weight:600;padding:8px 15px;border-radius:20px;transition:0.3s;cursor:pointer;}
-nav a:hover{background:#9b59b6;transform:translateY(-3px);}
-section{display:none;padding:50px 20px;transition: opacity 0.5s;}
+body{background:#0b0b12;color:#fff;text-align:center;scroll-behavior:smooth;overflow-x:hidden;}
+header{padding:20px;background:rgba(11,11,18,0.95);position:sticky;top:0;z-index:100;}
+nav a{text-decoration:none;color:#fff;margin:0 12px;font-weight:600;padding:8px 20px;border-radius:25px;transition:0.3s;cursor:pointer;}
+nav a:hover{background:linear-gradient(45deg,#9b59b6,#e74c3c);transform:translateY(-3px);}
+section{display:none;padding:80px 20px;transition: opacity 0.5s;}
 section.active{display:block;}
-h1{font-size:2.5em;margin-bottom:20px;}
+h1,h2,h3{font-family:'Roboto',sans-serif;}
+h1{font-size:3em;margin-bottom:20px;color:#e74c3c;text-shadow:0 0 15px #9b59b6;}
+h2{font-size:2.2em;margin-bottom:20px;color:#9b59b6;}
+h3{margin-bottom:10px;color:#f39c12;}
 p{font-size:1.1em;margin-bottom:15px;color:#ccc;}
-a.button{display:inline-block;padding:10px 25px;border-radius:30px;background:#9b59b6;color:#fff;text-decoration:none;font-weight:bold;transition:0.3s;}
-a.button:hover{background:#8e44ad;transform:translateY(-3px);}
+a.button{display:inline-block;padding:12px 30px;border-radius:50px;background:linear-gradient(45deg,#9b59b6,#e74c3c);color:#fff;text-decoration:none;font-weight:bold;transition:0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);}
+a.button:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.5);}
+a.pulse{animation: pulse 2s infinite;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
 
-/* Strona główna - zdjęcia */
-.home-images{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px;}
-.home-images img{width:250px;height:200px;border-radius:15px;object-fit:cover;transition:0.3s;}
-.home-images img:hover{transform:scale(1.05);}
+/* Hero z parallax i gradientem */
+.hero{position:relative;background:linear-gradient(135deg,#1f1c2c,#28223a);padding:120px 20px;border-radius:20px;margin-bottom:50px;overflow:hidden;animation: gradient 15s ease infinite;}
+@keyframes gradient{0%{background:linear-gradient(135deg,#1f1c2c,#28223a);}50%{background:linear-gradient(135deg,#28223a,#1f1c2c);}100%{background:linear-gradient(135deg,#1f1c2c,#28223a);}}
+
+/* Hero video */
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.2;z-index:0;border-radius:20px;}
+
+/* Hero content */
+.hero .content{position:relative;z-index:1;}
+
+/* Screenshot / galerie */
+.home-images, .gallery-images{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+.home-images img, .gallery-images img{width:260px;height:180px;border-radius:15px;object-fit:cover;transition:0.3s;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.5);}
+.home-images img:hover, .gallery-images img:hover{transform:scale(1.05);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+
+/* Features */
+.features{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+.feature-card{background:linear-gradient(145deg,#2c2a3a,#1f1c2c);padding:25px;width:250px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,0.4);transition:transform 0.3s,box-shadow 0.3s;position:relative;}
+.feature-card:hover{transform:translateY(-7px);box-shadow:0 12px 25px rgba(0,0,0,0.6);}
+.feature-card i{font-size:2.5em;color:#e74c3c;margin-bottom:15px;}
+.feature-card .tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#111128;color:#fff;padding:5px 10px;border-radius:8px;font-size:0.9em;opacity:0;pointer-events:none;transition:0.3s;}
+.feature-card:hover .tooltip{opacity:1;}
 
 /* Aktualizacje */
-.updates{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px;}
-.update-card{background:#2c2a3a;padding:20px;width:250px;border-radius:15px;transition:transform 0.3s,box-shadow 0.3s;}
-.update-card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,0.5);}
-.update-card h3{margin-bottom:10px;color:#9b59b6;}
+.updates{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+.update-card{background:linear-gradient(145deg,#2c2a3a,#1f1c2c);padding:20px;width:270px;border-radius:20px;transition:transform 0.3s,box-shadow 0.3s,opacity 0.5s;box-shadow:0 5px 15px rgba(0,0,0,0.4);}
+.update-card.enter{animation:slideDown 0.5s ease forwards;}
+@keyframes slideDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+.update-card h3{color:#e74c3c;}
 .update-card p{color:#ccc;font-size:1em;}
 
-/* Kontakt i O nas */
-.contact, .about{padding:50px 20px;}
-.contact h2, .about h2{margin-bottom:20px;color:#e0b3ff;}
-.contact p, .about p{color:#ccc;margin-bottom:10px;font-size:1.1em;}
+/* Zespół */
+.team{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+.team-member{background:linear-gradient(135deg,#2c2a3a,#1f1c2c);padding:20px;width:250px;border-radius:20px;transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.4);}
+.team-member:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+.team-member img{width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;}
+.team-member h3{color:#f39c12;margin-bottom:10px;}
+.team-member p{color:#ccc;font-size:1em;}
 
-footer{padding:20px;background:#111128;color:#aaa;margin-top:50px;}
+/* Kontakt */
+.contact p{margin:8px 0;display:flex;align-items:center;justify-content:center;font-size:1.1em;}
+.contact i{margin-right:10px;color:#9b59b6;}
+.contact form{margin-top:20px;display:flex;flex-direction:column;align-items:center;}
+.contact input, .contact textarea{padding:10px;width:300px;margin:5px 0;border-radius:10px;border:none;outline:none;}
+.contact button{padding:10px 20px;margin-top:10px;border:none;border-radius:25px;background:linear-gradient(45deg,#9b59b6,#e74c3c);color:#fff;cursor:pointer;transition:0.3s;}
+.contact button:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,0.5);}
+
+/* FAQ / Smaczki */
+.faq{max-width:800px;margin:40px auto;text-align:left;}
+.faq h3{cursor:pointer;margin:10px 0;background:#111128;padding:10px;border-radius:10px;}
+.faq p{display:none;padding:5px 10px;background:#22223a;border-radius:10px;}
+
+/* Countdown */
+.countdown{font-size:2em;margin-top:20px;}
+
+/* Leaderboard / stats */
+.stats{display:flex;justify-content:center;gap:25px;margin-top:30px;}
+.stat-card{background:linear-gradient(145deg,#2c2a3a,#1f1c2c);padding:20px;width:180px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.4);transition:transform 0.3s;}
+
+/* Footer */
+footer{padding:25px;background:#111128;color:#aaa;margin-top:50px;}
 </style>
 </head>
 <body>
@@ -43,70 +93,358 @@ footer{padding:20px;background:#111128;color:#aaa;margin-top:50px;}
 <header>
     <nav>
         <a onclick="showSection('home')">Strona główna</a>
+        <a onclick="showSection('features')">Gameplay</a>
+        <a onclick="showSection('gallery')">Galeria</a>
         <a onclick="showSection('updates')">Aktualizacje</a>
-        <a onclick="showSection('contact')">Kontakt</a>
         <a onclick="showSection('about')">O nas</a>
+        <a onclick="showSection('contact')">Kontakt</a>
+        <a onclick="showSection('smaczki')">[Ciekawostki]</a>
     </nav>
 </header>
 
-<!-- Strona główna -->
-<section id="home" class="active" style="background:#1f1c2c;">
-    <h1>Witaj na oficjalnej stronie gry BloodCamp: The Game</h1>
-    <p>tutaj pokaże ci najciekawsze smaczki z gry ;).</p>
+<!-- Hero -->
+<section id="home" class="active">
+    <div class="hero">
+        <video autoplay loop muted>
+            <source src="demo.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h1>BloodCamp: The Game</h1>
+            <p>Odkryj najciekawsze momenty i smaczki z gry!</p>
+            <a class="button pulse" onclick="showSection('updates')">Zobacz aktualizacje</a>
+        </div>
+    </div>
     <div class="home-images">
-    <img src="Screen1.png" alt="Zdjęcie 1">
-    <img src="Screen1.png" alt="Zdjęcie 2">
-    <img src="Screen1.png" alt="Zdjęcie 3">
-    <img src="Screen1.png" alt="Zdjęcie 4">
+        <img src="Screen1.png" alt="Screenshot 1">
+        <img src="Screen2.png" alt="Screenshot 2">
+        <img src="Screen3.png" alt="Screenshot 3">
+        <img src="Screen4.png" alt="Screenshot 4">
+    </div>
+<!-- Mini teaser / GIF akcji -->
+<div class="teaser-section">
+  <h2>Mini Teaser</h2>
+  <div class="teaser-container">
+    <img src="teaser.gif" alt="Teaser gameplay" class="teaser-gif">
+    <p class="teaser-desc">Zobacz jak wygląda rozgrywka w trybie <strong>Survival</strong>!</p>
+  </div>
+</div>
+
+<!-- Tip dnia / ciekawostka -->
+<div class="tip-section">
+  <h2>Tip dnia</h2>
+  <div id="daily-tip" class="tip-card">Wczytywanie ciekawostki...</div>
+</div>
+
+<style>
+/* --- Teaser --- */
+.teaser-section { margin-top:60px; text-align:center; }
+.teaser-container { display:flex; flex-direction:column; align-items:center; gap:15px; }
+.teaser-gif {
+  width:70%;
+  max-width:800px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.6);
+  transition:transform 0.4s, box-shadow 0.4s, filter 0.4s;
+  cursor:pointer;
+}
+.teaser-gif:hover {
+  transform:scale(1.03);
+  box-shadow:0 15px 35px rgba(0,0,0,0.8);
+  filter:brightness(1.2);
+}
+.teaser-desc {
+  color:#bbb;
+  font-size:1.1em;
+  margin-top:10px;
+}
+
+/* --- Tip dnia --- */
+.tip-section { margin-top:60px; text-align:center; }
+.tip-card {
+  background:linear-gradient(135deg,#2c2a3a,#1f1c2c);
+  padding:25px;
+  width:60%;
+  margin:0 auto;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+  color:#eee;
+  font-size:1.1em;
+  transition:opacity 1s;
+  opacity:0;
+}
+.tip-card.show { opacity:1; }
+</style>
+
+<script>
+// --- Tip dnia (losowa ciekawostka co 7 sekund) ---
+const tips = [
+  "Używaj latarki tylko, gdy naprawdę musisz — zdradza twoją pozycję.",
+  "Nie każdy, kto przetrwał noc, pozostał sobą...",
+  "Woda ukrywa kroki, ale może zdradzić dźwiękiem.",
+];
+let tipIndex = 0;
+function showNextTip(){
+  const tipEl = document.getElementById("daily-tip");
+  tipEl.classList.remove("show");
+  setTimeout(()=>{
+    tipEl.textContent = tips[tipIndex];
+    tipEl.classList.add("show");
+    tipIndex = (tipIndex + 1) % tips.length;
+  }, 1000);
+}
+setInterval(showNextTip, 7000);
+showNextTip();
+</script>
+
+</section>
+
+<!-- Features -->
+<section id="features" style="background:#1f1c2c;">
+    <h2>Gameplay / Features</h2>
+    <div class="features">
+        <div class="feature-card"><i class="fas fa-bolt"></i><h3>Szybka akcja</h3><span class="tooltip">Przeżyj dynamiczne starcia w czasie rzeczywistym!</span><p>Intensywne akcje.</p></div>
+        <div class="feature-card"><i class="fas fa-user-ninja"></i><h3>Postacie</h3><span class="tooltip">rozwijaj unikalne postacie z osobnymi umiejętnościami.</span><p>Wybór postaci wpływa na gameplay.</p></div>
+        <div class="feature-card"><i class="fas fa-map"></i><h3>Ogromny świat</h3><span class="tooltip">Eksploruj rozległe mapy, znajdź przedmioty potrzebne do ucieczki.</span><p>Interaktywny świat gry.</p></div>
+        <div class="feature-card"><i class="fas fa-skull-crossbones"></i><h3>Walka</h3><span class="tooltip">Broń powala przeciwnika na okres 10 sekund.</span><p>Stawiaj czoła przeciwnikkowi za pomoca broni palnej</p></div>
+    </div>
+</section>
+
+<!-- Galeria -->
+<section id="gallery" style="background:#28223a;">
+    <h2>Galeria Screenshotów</h2>
+    <div class="gallery-images">
+        <img src="Screen1.png" alt="Screenshot 1">
+        <img src="Screen2.png" alt="Screenshot 2">
+        <img src="Screen3.png" alt="Screenshot 3">
+        <img src="Screen4.png" alt="Screenshot 4">
     </div>
 </section>
 
 <!-- Aktualizacje -->
-<section id="updates" style="background:#28223a;">
-    <h1>Aktualizacje</h1>
-    <div class="updates">
-        <div class="update-card">
+<section id="updates" style="background:#1a1f36;">
+    <h2>Aktualizacje</h2>
+    <div class="updates" id="updatesContainer">
+        <div class="update-card enter">
             <h3>2025-11-01</h3>
             <p>Dodano nową funkcjonalność w systemie logowania użytkowników.</p>
         </div>
-        <div class="update-card">
+        <div class="update-card enter">
             <h3>2025-10-25</h3>
             <p>Poprawiono błędy w galerii zdjęć i zoptymalizowano ładowanie strony.</p>
         </div>
-        <div class="update-card">
-            <h3>2025-10-15</h3>
-            <p>Nowy design strony głównej z lepszym podziałem sekcji.</p>
-        </div>
-        <div class="update-card">
-            <h3>2025-10-01</h3>
-            <p>Uruchomiono pierwszy release strony w wersji demo.</p>
-        </div>
+    </div>
+    <button class="button" onclick="addUpdate()">Dodaj aktualizację</button>
+</section>
+
+<!-- O nas -->
+<section id="about" style="background:#1f1c2c;">
+    <h2>O nas</h2>
+    <p>Poznaj naszą ekipę tworzącą grę BloodCamp!</p>
+    <p><em>„Nasza misja: stworzyć najbardziej emocjonującą grę w świecie survival horror”</em></p>
+    <div class="team">
+        <div class="team-member"><img src="Ahen.png" alt=""><h3>Ahen</h3><p>Lead Developer</p></div>
+        <div class="team-member"><img src="Kaja.png" alt=""><h3>Kaja</h3><p>Art Designer</p></div>
     </div>
 </section>
 
 <!-- Kontakt -->
-<section id="contact" style="background:#0d0d1a;">
-    <h2>Kontakt</h2>
-    <p>Discord: .ahen</p>
-    <p>Adres: Szwecja, Sztokholm</p>
+<section id="contact" style="background:#0d0d1a; position:relative; overflow:hidden;">
+  <h2>Kontakt</h2>
+  <p><i class="fab fa-discord"></i> Discord: <strong>.ahen</strong></p>
+  <p><i class="fas fa-map-marker-alt"></i> Szwecja, Sztokholm</p>
+
+  <div class="contact-wrapper">
+    <form onsubmit="alert('Wiadomość wysłana!'); return false;" class="contact-form">
+      <h3>Wyślij nam wiadomość</h3>
+      <div class="input-group">
+        <input type="text" id="name" required>
+        <label for="name">Twoje imię</label>
+      </div>
+      <div class="input-group">
+        <input type="email" id="email" required>
+        <label for="email">Twój email</label>
+      </div>
+      <div class="input-group">
+        <textarea id="message" rows="4" required></textarea>
+        <label for="message">Twoja wiadomość</label>
+      </div>
+      <button type="submit" class="send-btn">Wyślij wiadomość</button>
+    </form>
+  </div>
 </section>
 
-<!-- O nas -->
-<section id="about" style="background:#1a1f36;">
-    <h2>O nas</h2>
-    <p>Tutaj znajdziesz całą nasza ekipe która tworzy tą gre.</p>
-    <p>Ahen - Lead Developer.</p>
+<style>
+/* Sekcja kontaktu - glass/neon styl */
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.contact-form {
+  background: rgba(30, 20, 40, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 30px 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 0 25px rgba(155, 89, 182, 0.2);
+  text-align: left;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.contact-form h3 {
+  text-align: center;
+  color: #e74c3c;
+  margin-bottom: 25px;
+  font-weight: 600;
+  text-shadow: 0 0 10px #9b59b6;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-bottom: 2px solid #9b59b6;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  font-size: 1em;
+  transition: 0.3s;
+}
+
+.input-group label {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus ~ label,
+.input-group textarea:focus ~ label,
+.input-group input:valid ~ label,
+.input-group textarea:valid ~ label {
+  top: -10px;
+  font-size: 0.85em;
+  color: #e74c3c;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-bottom-color: #e74c3c;
+  box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+}
+
+.send-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #9b59b6, #e74c3c);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+}
+
+.send-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(231, 76, 60, 0.5);
+}
+
+/* Animacja wejścia */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<!-- Smaczki -->
+<section id="smaczki" style="background:#22223a;">
+    <h2>Ciekawostki</h2>
+    
+    <!-- FAQ -->
+    <div class="faq">
+        <h3>Jak powstała gra?</h3>
+        <p>Gra została zapoczątkowana przez jedną osobę, Ahen, która z czasem zebrała wokół siebie mały zespół, wspólnie rozwijających projekt inspirowany Friday the 13th: The Game.</p>
+        <h3>Ulubiona broń zespołu?</h3>
+        <p>Najczęściej wybierany jest shotgun – efektowny i szybki.</p>
+    </div>
+    <!-- Countdown -->
+    <div>
+        <h3>Następny update za:</h3>
+        <div class="countdown" id="countdown">00d 00h 00m 00s</div>
+    </div>
+
+    <!-- Leaderboard / Stats -->
+    <div class="stats">
+        <div class="stat-card"><h3>1+</h3><p>Graczy online</p></div>
+        <div class="stat-card"><h3>0</h3><p>Ukończone misje społeczności</p></div>
+        <div class="stat-card"><h3>1</h3><p>Map w grze</p></div>
+    </div>
+
+    <!-- Mini Quiz -->
+    <div style="margin-top:30px;">
+        <h3>Która postać jest Twoja ulubiona?</h3>
+        <button class="button" onclick="alert('Wybrałeś Ahen!')">Ahen</button>
+        <button class="button" onclick="alert('Wybrałeś Kaja!')">Kaja</button>
+    </div>
 </section>
 
 <footer>© 2025 BloodCamp:TheGame | Wszystkie prawa zastrzeżone</footer>
 
 <script>
+// Menu
 function showSection(id){
     const sections = document.querySelectorAll('section');
     sections.forEach(sec => sec.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
+
+// Dynamiczne aktualizacje
+function addUpdate(){
+    const container = document.getElementById('updatesContainer');
+    const date = prompt("Podaj datę aktualizacji (YYYY-MM-DD):");
+    const text = prompt("Podaj treść aktualizacji:");
+    if(date && text){
+        const card = document.createElement('div');
+        card.className = 'update-card enter';
+        card.innerHTML = `<h3>${date}</h3><p>${text}</p>`;
+        container.prepend(card);
+    }
+}
+
+// FAQ toggle
+document.querySelectorAll('.faq h3').forEach(item=>{
+    item.addEventListener('click',()=>{item.nextElementSibling.style.display = item.nextElementSibling.style.display==='block'?'none':'block';});
+});
+
+// Countdown
+let countDownDate = new Date("Nov 30, 2025 00:00:00").getTime();
+setInterval(()=>{
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let days = Math.floor(distance/(1000*60*60*24));
+    let hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    let minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+    let seconds = Math.floor((distance%(1000*60))/1000);
+    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+},1000);
 </script>
 
 </body>
 </html>
+
