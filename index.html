@@ -545,6 +545,88 @@ hamburger.addEventListener('click', () => {
 });
 </script>
 
+<!-- ====== Lightbox (powiększanie zdjęć) ====== -->
+<style>
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+  transition: transform 0.3s ease;
+}
+
+.lightbox img:hover {
+  transform: scale(1.02);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2em;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.lightbox-close:hover {
+  color: #e74c3c;
+  transform: rotate(90deg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; } to { opacity: 0; }
+}
+</style>
+
+<!-- Lightbox HTML -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img src="" alt="Podgląd zdjęcia" id="lightbox-img">
+</div>
+
+<!-- Lightbox Script -->
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".lightbox-close");
+
+document.querySelectorAll(".home-images img, .gallery-images img").forEach(img => {
+  img.addEventListener("click", () => {
+    lightbox.style.display = "flex";
+    lightboxImg.src = img.src;
+  });
+});
+
+closeBtn.addEventListener("click", () => {
+  lightbox.style.animation = "fadeOut 0.4s ease";
+  setTimeout(() => {
+    lightbox.style.display = "none";
+    lightbox.style.animation = "fadeIn 0.4s ease";
+  }, 400);
+});
+
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    closeBtn.click();
+  }
+});
+</script>
+
 </body>
 </html>
-
