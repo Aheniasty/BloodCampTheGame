@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
-/* Reset i podstawowy wygląd */
+/* WSZYSTKIE PRAWA ZASTRZEŻONE PRZEZ AHENA */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;}
 body{background:#0b0b12;color:#fff;text-align:center;scroll-behavior:smooth;overflow-x:hidden;}
 header{padding:20px;background:rgba(11,11,18,0.95);position:sticky;top:0;z-index:100;}
@@ -87,6 +87,198 @@ a.pulse{animation: pulse 2s infinite;}
 /* Footer */
 footer{padding:25px;background:#111128;color:#aaa;margin-top:50px;}
 </style>
+
+<style>
+/* ==== Neon Roadmap z paskami ==== */
+.neon-roadmap {
+  margin-top: 60px;
+  padding: 60px 20px;
+  background: rgba(20,20,35,0.7);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(155,89,182,0.3), inset 0 0 40px rgba(231,76,60,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.neon-roadmap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(231,76,60,0.1), transparent 70%);
+  animation: glowPulse 6s infinite alternate;
+  z-index: 0;
+}
+@keyframes glowPulse {
+  from { opacity: 0.6; } to { opacity: 1; }
+}
+.neon-roadmap h2 {
+  font-size: 2.5em;
+  color: #e74c3c;
+  text-shadow: 0 0 15px #9b59b6;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+.timeline { position: relative; max-width: 960px; margin: 0 auto; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #9b59b6, #e74c3c);
+  transform: translateX(-50%);
+}
+.timeline-item { position: relative; width: 50%; padding: 20px 30px; }
+.timeline-item:nth-child(odd){ left:0; text-align:right; }
+.timeline-item:nth-child(even){ left:50%; }
+.timeline-content {
+  background: rgba(30,20,40,0.9);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(155,89,182,0.3);
+  position: relative;
+  z-index: 1;
+  transition: transform .3s, box-shadow .3s;
+}
+.timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(231,76,60,0.4);
+}
+.progress-bar {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  height: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.progress {
+  height: 10px;
+  background: linear-gradient(90deg,#9b59b6,#e74c3c);
+  box-shadow: 0 0 15px rgba(231,76,60,0.8);
+  border-radius: 10px;
+  animation: pulseBar 2s infinite alternate;
+}
+@keyframes pulseBar {
+  from { filter: brightness(1); } to { filter: brightness(1.5); }
+}
+@media(max-width:900px){
+  .timeline::before{ left:10px; }
+  .timeline-item{ width:100%; left:0!important; text-align:left; padding-left:40px; }
+}
+
+/* ==== Globalne particles i neonowy efekt ==== */
+#particles-js {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, rgba(10,10,25,0.8), #0b0b12);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(155,89,182,0.15), transparent 70%), radial-gradient(circle at bottom, rgba(231,76,60,0.15), transparent 70%);
+  z-index: -1;
+  animation: neonGlow 12s ease-in-out infinite alternate;
+}
+@keyframes neonGlow {
+  from { opacity: 0.5; filter: blur(3px); }
+  to { opacity: 1; filter: blur(6px); }
+}
+</style>
+
+
+<style>
+/* === Strona główna bez ramek === */
+#home {
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* === Sekcje z ramkami (glassmorphism kontaktowy) === */
+section:not(#home) {
+  background: linear-gradient(145deg, rgba(30,20,40,0.6), rgba(20,10,30,0.8));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(155,89,182,0.1), inset 0 0 50px rgba(231,76,60,0.1);
+  backdrop-filter: blur(10px);
+  width: 95%;
+  margin: 60px auto;
+  padding: 80px 20px;
+  transition: all 0.8s ease;
+}
+
+/* === Neonowy efekt nagłówków === */
+h2, h3 {
+  text-shadow: 0 0 12px rgba(155,89,182,0.9), 0 0 24px rgba(231,76,60,0.5);
+  color: #c06bf5;
+  transition: text-shadow 0.4s ease;
+}
+h2:hover, h3:hover {
+  text-shadow: 0 0 20px rgba(231,76,60,0.9), 0 0 40px rgba(155,89,182,0.7);
+}
+
+/* === Neonowe przyciski === */
+.button, .send-btn {
+  background: linear-gradient(90deg, #9b59b6, #e74c3c);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  box-shadow: 0 0 20px rgba(231,76,60,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+.button:hover, .send-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(231,76,60,0.6), 0 0 25px rgba(155,89,182,0.5);
+}
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(231,76,60,0.3); }
+  50% { box-shadow: 0 0 30px rgba(155,89,182,0.6); }
+  100% { box-shadow: 0 0 10px rgba(231,76,60,0.3); }
+}
+
+/* === Efekt miękkich kart === */
+.feature-card, .update-card, .team-member, .stat-card {
+  background: rgba(30, 20, 40, 0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+.feature-card:hover, .update-card:hover, .team-member:hover, .stat-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(231, 76, 60, 0.6);
+  box-shadow: 0 12px 35px rgba(231, 76, 60, 0.4);
+}
+
+/* === Lepszy kontrast tekstu === */
+p, span, label {
+  color: #ddd;
+}
+strong {
+  color: #ff7575;
+}
+
+/* === Delikatny neonowy gradient tła === */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(155,89,182,0.15), transparent 70%), radial-gradient(circle at bottom right, rgba(231,76,60,0.15), transparent 70%);
+  z-index: -1;
+  animation: softPulse 14s infinite ease-in-out alternate;
+}
+@keyframes softPulse {
+  from { opacity: 0.6; filter: blur(4px); }
+  to { opacity: 1; filter: blur(8px); }
+}
+</style>
+
 </head>
 <body>
 
@@ -130,6 +322,43 @@ footer{padding:25px;background:#111128;color:#aaa;margin-top:50px;}
 </div>
 
 <!-- Tip dnia / ciekawostka -->
+
+
+<!-- === ROADMAP 2025 (neonowa z paskami postępu) === -->
+<div class="roadmap-section neon-roadmap">
+  <h2>Roadmap 2025</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>Q4 2025 — 10%</h3>
+        <p>⚙️ Rozpoczęcie prac nad grą..</p>
+        <div class="progress-bar"><div class="progress" style="width:10%"></div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>Q1 2026 — 0%</h3>
+        <p></p>
+        <div class="progress-bar"><div class="progress" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>Q2 2026 — 0%</h3>
+        <p></p>
+        <div class="progress-bar"><div class="progress" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <h3>Q3 2026 — 0%</h3>
+        <p></p>
+        <div class="progress-bar"><div class="progress" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="tip-section">
   <h2>Tip dnia</h2>
   <div id="daily-tip" class="tip-card">Wczytywanie ciekawostki...</div>
@@ -225,6 +454,10 @@ showNextTip();
     <h2>Aktualizacje</h2>
     <div class="updates" id="updatesContainer">
         <div class="update-card enter">
+            <h3>2025-11-05</h3>
+            <p>Nowy, odświeżony wygląd strony.</p>
+        </div>
+        <div class="update-card enter">
             <h3>2025-11-01</h3>
             <p>Dodano nową funkcjonalność w systemie logowania użytkowników.</p>
         </div>
@@ -239,11 +472,10 @@ showNextTip();
 <!-- O nas -->
 <section id="about" style="background:#1f1c2c;">
     <h2>O nas</h2>
-    <p>Poznaj naszą ekipę tworzącą grę BloodCamp!</p>
-    <p><em>„Nasza misja: stworzyć najbardziej emocjonującą grę w świecie survival horror”</em></p>
+    <p>BloodCamp: The Game jest dziełem jednego twórcy – Ahena, który samodzielnie rozwija cały projekt.</p>
+    <p><em>„Moja misja: stworzyć najbardziej emocjonującą grę w świecie survival horror”</em></p>
     <div class="team">
         <div class="team-member"><img src="Ahen.png" alt=""><h3>Ahen</h3><p>Lead Developer</p></div>
-        <div class="team-member"><img src="Kaja.png" alt=""><h3>Kaja</h3><p>Art Designer</p></div>
     </div>
 </section>
 
@@ -255,7 +487,7 @@ showNextTip();
 
   <div class="contact-wrapper">
     <form onsubmit="alert('Wiadomość wysłana!'); return false;" class="contact-form">
-      <h3>Wyślij nam wiadomość</h3>
+      <h3>Wyślij mi wiadomość</h3>
       <div class="input-group">
         <input type="text" id="name" required>
         <label for="name">Twoje imię</label>
@@ -379,8 +611,8 @@ showNextTip();
     <!-- FAQ -->
     <div class="faq">
         <h3>Jak powstała gra?</h3>
-        <p>Gra została zapoczątkowana przez jedną osobę, Ahen, która z czasem zebrała wokół siebie mały zespół, wspólnie rozwijających projekt inspirowany Friday the 13th: The Game.</p>
-        <h3>Ulubiona broń zespołu?</h3>
+        <p>BloodCamp: The Game został stworzony przez jednego twórcę, Ahena, który samodzielnie rozwijał projekt, czerpiąc inspirację z Friday the 13th: The Game.</p>
+        <h3>Ulubiona broń ahena?</h3>
         <p>Najczęściej wybierany jest shotgun – efektowny i szybki.</p>
     </div>
     <!-- Countdown -->
@@ -391,18 +623,11 @@ showNextTip();
 
     <!-- Leaderboard / Stats -->
     <div class="stats">
-        <div class="stat-card"><h3>1+</h3><p>Graczy online</p></div>
+        <div class="stat-card"><h3>1</h3><p>Graczy online</p></div>
         <div class="stat-card"><h3>0</h3><p>Ukończone misje społeczności</p></div>
         <div class="stat-card"><h3>1</h3><p>Map w grze</p></div>
     </div>
 
-    <!-- Mini Quiz -->
-    <div style="margin-top:30px;">
-        <h3>Która postać jest Twoja ulubiona?</h3>
-        <button class="button" onclick="alert('Wybrałeś Ahen!')">Ahen</button>
-        <button class="button" onclick="alert('Wybrałeś Kaja!')">Kaja</button>
-    </div>
-</section>
 
 <footer>© 2025 BloodCamp:TheGame | Wszystkie prawa zastrzeżone</footer>
 
@@ -628,5 +853,157 @@ lightbox.addEventListener("click", (e) => {
 });
 </script>
 
+
+<!-- Particle.js konfiguracja + FadeIn + Tryb Jasny/Ciemny -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add("fade-in");
+
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 70 },
+            color: { value: ['#9b59b6','#e74c3c'] },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5 },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 150, color: '#9b59b6', opacity: 0.3, width: 1 },
+            move: { enable: true, speed: 2, out_mode: 'bounce' }
+        },
+        interactivity: {
+            events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } },
+            modes: { grab: { distance: 200, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
+        },
+        retina_detect: true
+    });
+
+    const toggle = document.createElement('button');
+    toggle.id = 'theme-toggle';
+    toggle.innerHTML = '<i class="fas fa-moon"></i>';
+    toggle.style.position = 'fixed';
+    toggle.style.bottom = '20px';
+    toggle.style.right = '20px';
+    toggle.style.padding = '10px 15px';
+    toggle.style.borderRadius = '50%';
+    toggle.style.border = 'none';
+    toggle.style.background = 'linear-gradient(45deg,#9b59b6,#e74c3c)';
+    toggle.style.color = '#fff';
+    toggle.style.cursor = 'pointer';
+    toggle.style.zIndex = '9999';
+    document.body.appendChild(toggle);
+
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const icon = toggle.querySelector('i');
+        icon.classList.toggle('fa-sun');
+        icon.classList.toggle('fa-moon');
+    });
+});
+</script>
+
+<style>
+body.fade-in {
+    opacity: 0;
+    animation: fadeInBody 1.2s ease forwards;
+}
+@keyframes fadeInBody {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+body.light-mode {
+    background: #f5f6fa;
+    color: #1d1d1d;
+}
+body.light-mode header { background: #fff; color: #1d1d1d; }
+body.light-mode nav a { color: #1d1d1d; }
+</style>
+
+
+<style>
+/* === ANIMACJA PASKÓW PROGRESU === */
+.progress-bar .progress {
+  width: 0;
+  transition: width 2s ease-in-out;
+}
+
+/* === SPADAJĄCE NEONOWE CZĄSTECZKI === */
+#falling-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+.falling-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+}
+</style>
+
+<script>
+// === ANIMOWANE PASKI PROGRESU ===
+function animateProgressBars() {
+  document.querySelectorAll('.progress-bar .progress').forEach(bar => {
+    const target = bar.getAttribute('style').match(/width:(\d+)%/);
+    if (target) {
+      bar.style.width = '0%';
+      setTimeout(() => {
+        bar.style.transition = 'width 2.5s ease-in-out';
+        bar.style.width = target[1] + '%';
+      }, 200);
+    }
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateProgressBars();
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.neon-roadmap').forEach(section => {
+  observer.observe(section);
+});
+
+// === SPADAJĄCE NEONOWE CZĄSTECZKI ===
+const colors = ['#e74c3c', '#9b59b6', '#ff66cc'];
+const particleContainer = document.createElement('div');
+particleContainer.id = 'falling-particles';
+document.body.appendChild(particleContainer);
+
+function createFallingParticle() {
+  const particle = document.createElement('div');
+  particle.classList.add('falling-particle');
+  const size = Math.random() * 6 + 4;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+  particle.style.left = Math.random() * 100 + 'vw';
+  particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+  particle.style.animationDuration = Math.random() * 8 + 5 + 's';
+  particleContainer.appendChild(particle);
+  setTimeout(() => particle.remove(), 13000);
+}
+
+setInterval(createFallingParticle, 150);
+</script>
+
 </body>
 </html>
+
